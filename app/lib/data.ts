@@ -185,6 +185,9 @@ export async function fetchCustomers() {
   noStore();
 
   try {
+    console.log('Fetching customers data...');
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+
     const data = await sql<CustomerField>`
       SELECT
         id,
@@ -192,6 +195,8 @@ export async function fetchCustomers() {
       FROM customers
       ORDER BY name ASC
     `;
+
+    console.log('Data fetch completed after 3 seconds.');
 
     const customers = data.rows;
     return customers;
