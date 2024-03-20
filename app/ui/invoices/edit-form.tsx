@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { fetchInvoiceById, fetchCustomers } from '@/app/lib/data';
 import { updateInvoice } from '@/app/lib/actions';
+import { notFound } from 'next/navigation';
 
 export default async function EditInvoiceForm({ id }: { id: string }) {
   const [invoice, customers] = await Promise.all([
@@ -15,6 +16,11 @@ export default async function EditInvoiceForm({ id }: { id: string }) {
     fetchCustomers(),
   ]);
   const updateInvoiceWithId = updateInvoice.bind(null, id);
+
+  if (!invoice) {
+    console.log('Invoice not found', id);
+    notFound();
+  }
 
   return (
     <form action={updateInvoiceWithId}>
