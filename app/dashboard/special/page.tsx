@@ -1,33 +1,18 @@
-'use client';
+import { fetchPosts } from '@/app/lib/api';
+import SpecialView from '@/app/views/special/special.view';
+import { Metadata } from 'next';
 
-import type { MouseEvent } from 'react';
-import Link from 'next/link';
-import { useCount, useDispatchCount } from '@/app/providers/context';
+export const metadata: Metadata = {
+  title: 'Special',
+};
 
-const Page = () => {
-  const count = useCount();
-  const dispatch = useDispatchCount();
-
-  const handleIncrease = (event: MouseEvent<HTMLButtonElement>) =>
-    dispatch({
-      type: 'INCREASE',
-    });
-  const handleDecrease = (event: MouseEvent<HTMLButtonElement>) =>
-    dispatch({
-      type: 'DECREASE',
-    });
+export default async function Page() {
+  const posts = await fetchPosts();
 
   return (
     <>
-      <h1>SPECIAL</h1>
-      <p>Counter: {count}</p>
-      <button onClick={handleIncrease}>Increase</button>
-      <button onClick={handleDecrease}>Decrease</button>
-      <p>
-        <Link href="/dashboard/about">About</Link>
-      </p>
+      <h1>SPECIAL VIEW</h1>
+      <SpecialView posts={posts} />
     </>
   );
-};
-
-export default Page;
+}

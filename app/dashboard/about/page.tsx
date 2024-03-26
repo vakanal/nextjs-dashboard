@@ -1,34 +1,10 @@
-'use client';
+import AboutView from '@/app/views/about/about.view';
 
-import type { MouseEvent } from 'react';
-import Link from 'next/link';
-import { useCount, useDispatchCount } from '@/app/providers/context';
-
-const Page = () => {
-  const count = useCount();
-  const dispatch = useDispatchCount();
-
-  const handleIncrease = (event: MouseEvent<HTMLButtonElement>) =>
-    dispatch({
-      type: 'INCREASE',
-    });
-  const handleIncrease15 = (event: MouseEvent<HTMLButtonElement>) =>
-    dispatch({
-      type: 'INCREASE_BY',
-      payload: 15,
-    });
-
+export default function Page() {
   return (
     <>
-      <h1>ABOUT</h1>
-      <p>Counter: {count}</p>
-      <button onClick={handleIncrease}>Increase</button>
-      <button onClick={handleIncrease15}>Increase By 15</button>
-      <p>
-        <Link href="/dashboard/special">Special</Link>
-      </p>
+      <h1>ABOUT VIEW</h1>
+      <AboutView />
     </>
   );
-};
-
-export default Page;
+}
